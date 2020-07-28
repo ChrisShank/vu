@@ -9,9 +9,7 @@ function injectHook(lifecycle: Lifecycle, hook: Hook) {
 	}
 }
 
-export const onBeforeMounted = (hook: Hook) => injectHook(Lifecycle.BEFORE_MOUNT, hook)
 export const onMounted = (hook: Hook) => injectHook(Lifecycle.MOUNT, hook)
 export const onBeforeUpdate = (hook: Hook) => injectHook(Lifecycle.BEFORE_UPDATE, hook)
 export const onUpdate = (hook: Hook) => injectHook(Lifecycle.UPDATE, hook)
-export const onBeforeUnmounted = (hook: Hook) => injectHook(Lifecycle.BEFORE_UNMOUNT, hook)
 export const onUnmounted = (hook: Hook) => injectHook(Lifecycle.UNMOUNT, hook)

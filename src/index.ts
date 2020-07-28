@@ -1,6 +1,6 @@
 export { defineComponent, h, svg } from './component'
 export { computed } from './computed'
-export { onBeforeMounted, onMounted, onBeforeUpdate, onUpdate, onBeforeUnmounted, onUnmounted } from './lifecycle'
+export { onMounted, onBeforeUpdate, onUpdate, onUnmounted } from './lifecycle'
 export { watch, watchEffect } from './watch'
 
 export {
