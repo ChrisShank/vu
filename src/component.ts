@@ -16,7 +16,9 @@ export type RenderFunction = () => ReturnType<H>
 
 type Setup<Props, EventNames> = (
 	props: Readonly<Props>,
-	emit: (event: EventNames, ...args: any[]) => void
+	context: {
+		emit: (event: EventNames, ...args: any[]) => void
+	}
 ) => RenderFunction
 
 type ComponentBaseOptions<Props, EventNames> = {
@@ -96,25 +98,21 @@ export function defineComponent(options: ComponentOptions) {
 		connectedCallback() {
 			setCurrentComponent(instance)
 
-			let rawRenderFunction = setup(
-				shallowReadonly(instance.props!),
-				(event: string, args: any[]) => {
-					if (emits.includes(event)) {
-						const e = new CustomEvent(event, { bubbles: false, cancelable: false, detail: args })
-						this.dispatchEvent(e)
-					}
-				},
-			)
+			const emit = (event: string, ...args: any[]) => {
+				if (emits.includes(event)) {
+					const e = new CustomEvent(event, { bubbles: false, cancelable: false, detail: args })
+					this.dispatchEvent(e)
+				}
+			}
 
-			let renderFunction: RenderFunction
-			if (style) {
-				renderFunction = () => h`
+			const rawRenderFunction = setup(shallowReadonly(instance.props!), { emit })
+
+			const renderFunction: RenderFunction = !style
+				? rawRenderFunction
+				: () => h`
 					<style>${style}</style>
 					${rawRenderFunction()}
 				`
-			} else {
-				renderFunction = rawRenderFunction
-			}
 
 			setCurrentComponent(null)
 
