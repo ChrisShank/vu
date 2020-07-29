@@ -1,17 +1,4 @@
-import { defineComponent, h, ref, model } from '/vu/'
-
-defineComponent({
-	name: 'my-button',
-	props: {
-		count: { type: Number, required: true },
-	},
-	emits: ['update:count'],
-	setup(props, { emit }) {
-		const click = () => emit('update:count', props.count + 1)
-
-		return () => h`<button @click=${click}>${props.count}</button>`
-	},
-})
+import { defineComponent, h, ref } from '/vu/'
 
 defineComponent({
 	name: 'my-counter',
@@ -21,7 +8,9 @@ defineComponent({
 		const decrement = () => count.value--
 
 		return () => h`
-			<my-button count="${model(count)}"></my-button>
+			<button @click=${decrement}>-</button>
+			<span>${count.value}</span>
+			<button @click=${increment}>+</button>
 		`
 	},
 })
