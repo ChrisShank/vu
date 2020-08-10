@@ -6,8 +6,7 @@
 		"build:demo": "vite build demo"
 	},
 	"dependencies": {
-		"@vue/reactivity": "^3.0.0-rc.4",
-		"lit-html": "^1.2.1"
+		"@vue/reactivity": "^3.0.0-rc.4"
 	},
 	"devDependencies": {
 		"vite": "^1.0.0-rc.3"

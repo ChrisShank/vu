@@ -1,8 +1,8 @@
-import { getCurrentComponent } from "./instance"
-import { Lifecycle, Hook } from "./component"
+import { getCurrentComponentInstance } from './instance'
+import { Lifecycle, Hook } from './component'
 
 function injectHook(lifecycle: Lifecycle, hook: Hook) {
-	const currentComponent = getCurrentComponent()
+	const currentComponent = getCurrentComponentInstance()
 
 	if (currentComponent) {
 		currentComponent[lifecycle].push(hook)

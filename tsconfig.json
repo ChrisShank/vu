@@ -1,15 +1,21 @@
 {
 	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "node",
 		"allowJs": false,
 		"lib": [
 			"esnext",
 			"dom"
 		],
-		"module": "ESNext",
-		"moduleResolution": "node",
 		"strict": true,
 		"strictNullChecks": true,
-		"target": "ESNext",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
 		"paths": {
 			"/vu/": [
 				"src/index.ts"

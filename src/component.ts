@@ -1,16 +1,13 @@
-import { render, html as h, svg } from 'lit-html'
-import { ReactiveEffect, stop, shallowReadonly, shallowReactive } from '@vue/reactivity'
+import { ReactiveEffect, stop, shallowReadonly } from '@vue/reactivity'
+import { render, h, H } from './template'
 import { watchEffect } from './watch'
-import { setCurrentComponent } from './instance'
+import { setCurrentComponentInstance } from './instance'
 import { ComponentPropOptions, ExtractPropTypes, getInitialProps, convertAttributeValue, validateProp } from './props'
 import { hyphenate, camelize } from './utils'
 import { __DEV__ } from './constants'
+import { Directive } from './template/directive'
 
 export type Data = Record<string, unknown>
-
-export { h, svg }
-
-export type H = typeof h | typeof svg
 
 export type RenderFunction = () => ReturnType<H>
 
@@ -24,8 +21,9 @@ type Setup<Props, EventNames> = (
 type ComponentBaseOptions<Props, EventNames> = {
 	name: string
 	setup: Setup<Props, EventNames>
+	directives?: Record<string, Directive>
 	emits?: EventNames[]
-	shadow?: ShadowRootInit,
+	shadowRoot?: ShadowRootInit
 	style?: string
 }
 
@@ -75,8 +73,14 @@ export function defineComponent<
 	PropsOptions extends Readonly<ComponentPropOptions>
 >(options: ComponentOptionsWithProps<PropsOptions, EventNames>): void
 
-export function defineComponent(options: ComponentOptions) {
-	const { name, setup, style, shadow = {}, props = {}, emits = [] } = options
+export function defineComponent({
+	name,
+	setup,
+	style,
+	shadowRoot = { mode: 'open' },
+	props = {},
+	emits = []
+}: ComponentOptions) {
 	const propsList = Object.keys(props)
 	const hyphenatedPropsList = propsList.map(hyphenate)
 
@@ -96,7 +100,7 @@ export function defineComponent(options: ComponentOptions) {
 		}
 
 		connectedCallback() {
-			setCurrentComponent(instance)
+			setCurrentComponentInstance(instance)
 
 			const emit = (event: string, ...args: any[]) => {
 				if (emits.includes(event)) {
@@ -105,7 +109,7 @@ export function defineComponent(options: ComponentOptions) {
 				}
 			}
 
-			const rawRenderFunction = setup(shallowReadonly(instance.props!), { emit })
+			const rawRenderFunction = setup(shallowReadonly(instance.props), { emit })
 
 			const renderFunction: RenderFunction = !style
 				? rawRenderFunction
@@ -114,9 +118,9 @@ export function defineComponent(options: ComponentOptions) {
 					${rawRenderFunction()}
 				`
 
-			setCurrentComponent(null)
+			setCurrentComponentInstance(null)
 
-			const container = this.attachShadow({ mode: 'open', ...shadow })
+			const container = this.attachShadow(shadowRoot)
 
 			watchEffect(() => {
 				instance[Lifecycle.BEFORE_UPDATE].forEach(hook => hook())

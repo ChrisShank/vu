@@ -6,12 +6,12 @@ import {
 	WritableComputedRef,
 	ComputedGetter,
 } from '@vue/reactivity'
-import { getCurrentComponent } from './instance'
+import { getCurrentComponentInstance } from './instance'
 
 // Record effects created during a component's setup() so that they can be
 // stopped when the component unmounts
 export function recordInstanceBoundEffect(effect: ReactiveEffect): void {
-	const currentComponent = getCurrentComponent()
+	const currentComponent = getCurrentComponentInstance()
 	if (currentComponent) {
 		currentComponent.effects.push(effect)
 	}

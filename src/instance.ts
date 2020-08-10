@@ -1,11 +1,11 @@
-import { InternalComponent } from "./component"
+import { ComponentInstance } from "./component"
 
-let currentComponent: InternalComponent | null = null
+let currentComponentInstance: ComponentInstance | null = null
 
-export function getCurrentComponent(): InternalComponent | null {
-	return currentComponent
+export function getCurrentComponentInstance(): ComponentInstance | null {
+	return currentComponentInstance
 }
 
-export function setCurrentComponent(component: InternalComponent | null) {
-	currentComponent = component
+export function setCurrentComponentInstance(component: ComponentInstance | null) {
+	currentComponentInstance = component
 }

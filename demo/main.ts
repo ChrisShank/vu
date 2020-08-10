@@ -1,5 +1,4 @@
-import { defineComponent, h, ref } from '/vu/'
-
+import { defineComponent, h, ref, render } from '/vu/'
 defineComponent({
 	name: 'my-counter',
 	setup() {
@@ -14,3 +13,11 @@ defineComponent({
 		`
 	},
 })
+
+// const div = (style: string = '', disabled: boolean = false) => h`
+// 	<div disabled=${disabled} style=${style}>Hello World</div>
+// `
+
+// render(div('background: red; padding: 15px', true), document.body)
+
+// setTimeout(() => render(div(), document.body), 2000)

@@ -4,6 +4,11 @@ export const isObject = (x: unknown): x is object => x !== null && typeof x === 
 
 export const isFunction = (x: unknown): x is Function => typeof x === 'function'
 
+// https://tc39.github.io/ecma262/#sec-typeof-operator
+export type Primitive = null | undefined | boolean | number | string | symbol | bigint
+
+export const isPrimitive = (x: unknown): x is Primitive => !isObject(x) && !isFunction(x)
+
 // Compare whether a value has changed, accounting for NaN.
 export const hasChanged = (value: unknown, oldValue: unknown): boolean =>
 	value !== oldValue && (value === value || oldValue === oldValue)

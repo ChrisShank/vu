@@ -9,7 +9,7 @@ import {
 } from '@vue/reactivity'
 import { queueJob } from './scheduler'
 import { recordInstanceBoundEffect } from './computed'
-import { getCurrentComponent } from './instance'
+import { getCurrentComponentInstance } from './instance'
 import { isArray, isObject, isFunction, hasChanged, remove } from './utils'
 import { __DEV__ } from './constants'
 
@@ -258,7 +258,7 @@ function doWatch(
 		runner()
 	}
 
-	const currentComponent = getCurrentComponent()
+	const currentComponent = getCurrentComponentInstance()
 	return () => {
 		stop(runner)
 		if (currentComponent) {
