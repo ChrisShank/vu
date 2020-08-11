@@ -40,11 +40,9 @@ export function instantiateTemplate(
 		if (part.type === 'node') {
 			parts.push(createNodePart(node!.parentNode!, part.childIndex, options))
 		} else if (part.type === 'attribute') {
-			if (part.directive) {
+			parts.push(createAttributePart(node! as Element, part.name))
+		} else if (part.type === 'directive') {
 
-			} else {
-				parts.push(createAttributePart(node! as Element, part.name))
-			}
 		}
 		partIndex++
 	}

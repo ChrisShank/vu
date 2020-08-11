@@ -1,8 +1,7 @@
 import { createWalker, isElement } from './utils'
-import { DirectiveModifiers } from './directive'
 import { __DEV__ } from '../constants'
 
-export type TemplatePart = NodePart | AttributePart
+export type TemplatePart = NodePart | AttributePart | DirectivePart
 
 export type NodePart = {
 	type: 'node'
@@ -10,15 +9,20 @@ export type NodePart = {
 	childIndex: number
 }
 
+type ExtractedDirective = Pick<DirectivePart, 'name' | 'arg' | 'modifiers'>
+
+export type DirectivePart = {
+	type: 'directive'
+	name: string
+	arg?: string
+	modifiers?: string[]
+	nodeIndex: number
+}
+
 export type AttributePart = {
 	type: 'attribute'
-	nodeIndex: number
 	name: string
-	directive?: {
-		name: string
-		arg: string
-		modifiers: DirectiveModifiers
-	}
+	nodeIndex: number
 }
 
 type ParsedTemplate = {
@@ -90,17 +94,18 @@ function generateParts(template: HTMLTemplateElement, numberOfParts: number): Te
 				const length = node.attributes.length
 				// Shallow copy of attributes since we are removing them
 				const attributes = { ...node.attributes }
-				const attributeParts: AttributePart[] = []
+				const attributeParts: (AttributePart | DirectivePart)[] = []
 				for (let i = 0; i < length; i++) {
-					const { name, value } = attributes[i]
+					const { value, name } = attributes[i]
 					const matches = [...value.matchAll(markerRegex)]
+
 					if (matches.length === 1) {
-						const partIndex = parseInt(matches[0][1])
-						attributeParts[partIndex - parts.length] = {
-							type: 'attribute',
-							name,
-							nodeIndex
-						}
+						const partIndex = parseInt(matches[0][1]) - parts.length
+
+						attributeParts[partIndex] = isDirective(name)
+							? { type: 'directive', nodeIndex, ...extractDirective(name) }
+							: { type: 'attribute', name, nodeIndex }
+
 						node.removeAttribute(name)
 					} else if (__DEV__ && matches.length > 1) {
 						throw new Error(`Attribute ${name} can only be interpolated once.`)
@@ -138,4 +143,29 @@ function generateParts(template: HTMLTemplateElement, numberOfParts: number): Te
 	}
 
 	return parts
+}
+
+const directiveShorthands: Record<string, string> = {
+	':': 'bind',
+	'@': 'on',
+	'#': 'slot',
+}
+
+const isDirective = (name: string) => /^(v-|:|@|#)/.test(name)
+
+const directiveRegex = (name: string) => /(?:^v-([a-z0-9-]+))?(?:(?::|^@|^#)(\[[^\]]+\]|[^\.]+))?(.+)?$/i.exec(name)
+
+function extractDirective(name: string): ExtractedDirective {
+	const [
+		,
+		dirName = directiveShorthands[name[0]],
+		arg,
+		modifiers
+	] = directiveRegex(name)!
+
+	return {
+		name: dirName,
+		arg,
+		modifiers: modifiers ? modifiers.substr(1).split('.') : [],
+	}
 }
