@@ -1,30 +1,24 @@
 {
-	"compilerOptions": {
-		"target": "ESNext",
-		"module": "ESNext",
-		"moduleResolution": "node",
-		"allowJs": false,
-		"lib": [
-			"esnext",
-			"dom"
-		],
-		"strict": true,
-		"strictNullChecks": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true,
-		"noImplicitAny": true,
-		"noImplicitThis": true,
-		"paths": {
-			"/vu/": [
-				"src/index.ts"
-			]
-		},
-		"baseUrl": "."
-	},
-	"include": [
-		"src/**/*.ts",
-		"demo/main.ts"
-	]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "sourceMap": false,
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowJs": false,
+    "strict": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "removeComments": false,
+    "lib": ["esnext", "dom"],
+    "types": ["jest", "node", "playwright"],
+    "rootDir": ".",
+    "paths": {
+      "@vu/*": ["packages/*/src"]
+    }
+  },
+  "include": ["packages/global.d.ts", "packages/*/src", "packages/*/__tests__", "test-dts"]
 }

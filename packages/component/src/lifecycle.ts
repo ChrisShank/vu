@@ -2,11 +2,11 @@ import { getCurrentComponentInstance } from './instance'
 import { Lifecycle, Hook } from './component'
 
 function injectHook(lifecycle: Lifecycle, hook: Hook) {
-	const currentComponent = getCurrentComponentInstance()
+  const currentComponent = getCurrentComponentInstance()
 
-	if (currentComponent) {
-		currentComponent[lifecycle].push(hook)
-	}
+  if (currentComponent) {
+    currentComponent[lifecycle].push(hook)
+  }
 }
 
 export const onMounted = (hook: Hook) => injectHook(Lifecycle.MOUNT, hook)

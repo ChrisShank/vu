@@ -1,0 +1,11 @@
+{
+  "name": "@vu/template",
+  "version": "0.0.0",
+  "main": "index.js",
+  "author": "Christopher Shank",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@vue/reactivity": "^3.0.0-rc.5"
+  }
+}

@@ -3,3 +3,4 @@ node_modules
 dist
 *.local
 .vscode
+yarn-error.log

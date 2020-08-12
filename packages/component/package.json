@@ -1,0 +1,14 @@
+{
+  "name": "@vu/component",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "module": "dist/component.esm-bundler.js",
+  "types": "dist/component.d.ts",
+  "author": "Christopher Shank",
+  "license": "MIT",
+  "dependencies": {
+    "@vu/template": "0.0.0",
+    "@vue/reactivity": "^3.0.0-rc.5"
+  }
+}
