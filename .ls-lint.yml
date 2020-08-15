@@ -1,7 +1,9 @@
 ls:
   packages/*/{src,__tests__}:
     .js: kebab-case
-    .ts: camelCase | PascalCase
-    .d.ts: camelCase
-    .spec.ts: camelCase | PascalCase
-    .mock.ts: camelCase
+    .ts: kebab-case
+    .d.ts: kebab-case
+    .spec.ts: kebab-case
+    .mock.ts: kebab-case
+ignore:
+  - node_modules
