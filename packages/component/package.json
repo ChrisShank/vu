@@ -1,13 +1,42 @@
 {
   "name": "@vu/component",
+  "description": "Vu Web Components",
   "version": "0.0.0",
-  "description": "",
+  "author": "Christopher Shank",
+  "license": "MIT",
   "main": "index.js",
   "module": "dist/component.esm-bundler.js",
   "types": "dist/component.d.ts",
-  "author": "Christopher Shank",
-  "license": "MIT",
+  "unpkg": "dist/component.global.js",
+  "jsdelivr": "dist/component.global.js",
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "buildOptions": {
+    "name": "VuComponent",
+    "formats": [
+      "cjs",
+      "esm-browser",
+      "esm-bundler",
+      "global"
+    ]
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisShank/vu.git"
+  },
+  "keywords": [
+    "vu",
+    "web components"
+  ],
+  "bugs": {
+    "url": "https://github.com/ChrisShank/vu/issues"
+  },
+  "homepage": "https://github.com/ChrisShank/vu/tree/master/packages/component",
   "dependencies": {
+    "@vu/shared": "0.0.0",
     "@vu/template": "0.0.0",
     "@vue/reactivity": "^3.0.0-rc.5"
   }

@@ -1,11 +1,42 @@
 {
   "name": "@vu/template",
+  "description": "Vu HTML Template Literals",
   "version": "0.0.0",
-  "main": "index.js",
   "author": "Christopher Shank",
   "license": "MIT",
-  "private": false,
+  "main": "index.js",
+  "module": "dist/reactivity.esm-bundler.js",
+  "types": "dist/reactivity.d.ts",
+  "unpkg": "dist/reactivity.global.js",
+  "jsdelivr": "dist/reactivity.global.js",
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "buildOptions": {
+    "name": "VuTemplate",
+    "formats": [
+      "cjs",
+      "esm-browser",
+      "esm-bundler",
+      "global"
+    ]
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisShank/vu.git"
+  },
+  "keywords": [
+    "vu",
+    "template tagged literals"
+  ],
+  "bugs": {
+    "url": "https://github.com/ChrisShank/vu/issues"
+  },
+  "homepage": "https://github.com/ChrisShank/vu/tree/master/packages/template",
   "dependencies": {
+    "@vu/shared": "0.0.0",
     "@vue/reactivity": "^3.0.0-rc.5"
   }
 }

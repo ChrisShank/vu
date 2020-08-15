@@ -1,0 +1,15 @@
+{
+  "name": "@vu/size-check",
+  "version": "0.0.0",
+  "private": true,
+  "buildOptions": {
+    "name": "Vu",
+    "formats": [
+      "global"
+    ]
+  },
+  "dependencies": {
+    "@vu/component": "0.0.0",
+    "@vu/template": "0.0.0"
+  }
+}

@@ -1,5 +1,5 @@
 import { createWalker } from './utils'
-import { TemplatePart } from './html'
+import { TemplatePart } from './h'
 import { Part, RenderOptions, createNodePart, createAttributePart } from './part'
 
 export type TemplateInstance = {

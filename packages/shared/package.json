@@ -1,6 +1,35 @@
 {
   "name": "@vu/shared",
   "version": "0.0.0",
+  "description": "Internl utils shared across vu packages",
+  "author": "Christopher Shank",
+  "license": "MIT",
   "main": "index.js",
-  "license": "MIT"
+  "module": "dist/reactivity.esm-bundler.js",
+  "types": "dist/reactivity.d.ts",
+  "unpkg": "dist/reactivity.global.js",
+  "jsdelivr": "dist/reactivity.global.js",
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "buildOptions": {
+    "name": "Vue",
+    "formats": [
+      "esm-bundler",
+      "cjs"
+    ]
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisShank/vu.git"
+  },
+  "keywords": [
+    "vu"
+  ],
+  "bugs": {
+    "url": "https://github.com/ChrisShank/vu/issues"
+  },
+  "homepage": "https://github.com/ChrisShank/vu/tree/master/packages/shared"
 }

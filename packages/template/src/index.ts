@@ -1,4 +1,4 @@
-import { html as h } from './html'
+import { h } from './h'
 import { render } from './render'
 
 type H = typeof h

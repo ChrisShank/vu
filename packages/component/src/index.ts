@@ -3,7 +3,7 @@ export { computed } from './computed'
 export { onMounted, onBeforeUpdate, onUpdate, onUnmounted } from './lifecycle'
 export { watch, watchEffect } from './watch'
 
-export { h, render } from './template'
+export { h, render, H } from '@vu/template'
 
 export {
   // Core

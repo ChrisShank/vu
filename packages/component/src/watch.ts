@@ -7,11 +7,11 @@ import {
   ReactiveEffectOptions,
   isReactive,
 } from '@vue/reactivity'
+import { isArray, isObject, isFunction } from '@vu/shared'
 import { queueJob } from './scheduler'
 import { recordInstanceBoundEffect } from './computed'
 import { getCurrentComponentInstance } from './instance'
 import { hasChanged, remove } from './utils'
-import { isArray, isObject, isFunction } from '@vu/shared'
 
 export type WatchEffect = (onInvalidate: InvalidateCbRegistrator) => void
 

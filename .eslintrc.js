@@ -14,7 +14,7 @@ module.exports = {
       { varsIgnorePattern: '.*', args: 'after-used', argsIgnorePattern: '^_' },
     ],
     // most of the codebase are expected to be env agnostic
-    'no-restricted-globals': ['error', ...NodeGlobals],
+    'no-restricted-globals': ['error', ...DOMGlobals, ...NodeGlobals],
   },
   overrides: [
     // tests, no restrictions (runs in Node / jest with jsdom)
@@ -33,19 +33,19 @@ module.exports = {
       },
     },
     // Packages targeting DOM
-    // {
-    //   files: ['packages/{template,component}/**'],
-    //   rules: {
-    //     'no-restricted-globals': ['error', ...NodeGlobals]
-    //   }
-    // },
+    {
+      files: ['packages/{template,component}/**'],
+      rules: {
+        'no-restricted-globals': ['error', ...NodeGlobals],
+      },
+    },
     // Packages targeting Node
-    // {
-    //   files: ['packages/{}/**'],
-    //   rules: {
-    //     'no-restricted-globals': ['error', ...DOMGlobals],
-    //     'no-restricted-syntax': 'off'
-    //   }
-    // },
+    {
+      files: ['scripts/**', './*.js'],
+      rules: {
+        'no-restricted-globals': ['error', ...DOMGlobals],
+        'no-restricted-syntax': 'off',
+      },
+    },
   ],
 }

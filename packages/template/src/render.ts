@@ -1,4 +1,4 @@
-import { TemplateResult } from './html'
+import { TemplateResult } from './h'
 import { RenderOptions, NodePart, createNodePart } from './part'
 
 const renders = new WeakMap<Node, NodePart>()

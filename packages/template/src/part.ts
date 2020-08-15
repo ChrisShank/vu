@@ -1,9 +1,9 @@
-import { TemplateResult } from './html'
+import { unref } from '@vue/reactivity'
+import { isPrimitive } from '@vu/shared'
+import { TemplateResult } from './h'
 import { instantiateTemplate } from './template-instance'
 import { Directive } from '../../component/src/directive'
 import { isTemplateResult } from './utils'
-import { isPrimitive } from '../utils'
-import { unref } from '@vue/reactivity'
 
 export type RenderOptions = Partial<{
   directives: Directive[]

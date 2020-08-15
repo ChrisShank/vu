@@ -36,7 +36,7 @@ export type TemplateResult = ParsedTemplate & {
 
 const parsedTemplates = new Map<TemplateStringsArray, ParsedTemplate>()
 
-export function html(strings: TemplateStringsArray, ...values: unknown[]): TemplateResult {
+export function h(strings: TemplateStringsArray, ...values: unknown[]): TemplateResult {
   let parsedTemplate = parsedTemplates.get(strings)
 
   if (!parsedTemplate) {

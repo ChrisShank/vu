@@ -1,6 +1,7 @@
-import { isBoolean, isNumber, isFunction, isArray, makeMap, capitalize, toRawType } from './utils'
-import { Data } from './component'
 import { shallowReactive } from '@vue/reactivity'
+import { isFunction, isArray } from '@vu/shared'
+import { isBoolean, isNumber, makeMap, capitalize, toRawType } from './utils'
+import { Data } from './component'
 
 type PropMethod<T, TConstructor = any> = T extends (...args: any) => any // if is function with args
   ? { new (): TConstructor; (): T; readonly prototype: TConstructor } // Create Function like constructor

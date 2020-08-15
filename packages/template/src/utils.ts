@@ -1,5 +1,5 @@
 import { isObject } from '@vu/shared'
-import { TemplateResult } from './html'
+import { TemplateResult } from './h'
 
 /* 5 = NodeFilter.SHOW_{ELEMENT|TEXT} */
 export const createWalker = (x: Node) => document.createTreeWalker(x, 5, null, false)
