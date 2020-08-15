@@ -34,7 +34,7 @@ module.exports = {
     },
     // Packages targeting DOM
     {
-      files: ['packages/{template,component}/**'],
+      files: ['packages/{template,component,size-check}/**'],
       rules: {
         'no-restricted-globals': ['error', ...NodeGlobals],
       },

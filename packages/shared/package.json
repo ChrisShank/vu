@@ -1,14 +1,14 @@
 {
   "name": "@vu/shared",
   "version": "0.0.0",
-  "description": "Internl utils shared across vu packages",
+  "description": "Internal utils shared across vu packages",
   "author": "Christopher Shank",
   "license": "MIT",
   "main": "index.js",
-  "module": "dist/reactivity.esm-bundler.js",
-  "types": "dist/reactivity.d.ts",
-  "unpkg": "dist/reactivity.global.js",
-  "jsdelivr": "dist/reactivity.global.js",
+  "module": "dist/shared.esm-bundler.js",
+  "types": "dist/shared.d.ts",
+  "unpkg": "dist/shared.global.js",
+  "jsdelivr": "dist/shared.global.js",
   "files": [
     "index.js",
     "dist"

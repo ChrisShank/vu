@@ -5,10 +5,10 @@
   "author": "Christopher Shank",
   "license": "MIT",
   "main": "index.js",
-  "module": "dist/reactivity.esm-bundler.js",
-  "types": "dist/reactivity.d.ts",
-  "unpkg": "dist/reactivity.global.js",
-  "jsdelivr": "dist/reactivity.global.js",
+  "module": "dist/template.esm-bundler.js",
+  "types": "dist/template.d.ts",
+  "unpkg": "dist/template.global.js",
+  "jsdelivr": "dist/template.global.js",
   "files": [
     "index.js",
     "dist"
