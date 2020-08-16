@@ -120,6 +120,8 @@ function createConfig(format, output, plugins = []) {
           require('@rollup/plugin-commonjs')({
             sourceMap: false,
           }),
+          require('rollup-plugin-node-builtins')(),
+          require('rollup-plugin-node-globals')(),
         ]
       : []
 
@@ -180,10 +182,6 @@ function createReplacePlugin(
     __NODE_JS__: isNodeBuild,
   }
 
-  if (!isProduction) {
-    replacements['process.env.NODE_ENV'] = `'development'`
-  }
-
   // allow inline overrides like
   //__DEV__=true yarn build template
   Object.keys(replacements).forEach((key) => {
@@ -211,9 +209,9 @@ function createMinifiedConfig(format) {
     },
     [
       terser({
+        ecma: 8,
         module: /^esm/.test(format),
         compress: {
-          ecma: 2019,
           pure_getters: true,
         },
       }),

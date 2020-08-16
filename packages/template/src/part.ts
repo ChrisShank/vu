@@ -145,7 +145,6 @@ export function createEventPart(
       }
 
       if (value != null) {
-        console.log(name, value)
         element.addEventListener(name, value, options)
       }
 
