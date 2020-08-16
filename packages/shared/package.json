@@ -14,7 +14,7 @@
     "dist"
   ],
   "buildOptions": {
-    "name": "Vue",
+    "name": "VuShared",
     "formats": [
       "esm-bundler",
       "cjs"

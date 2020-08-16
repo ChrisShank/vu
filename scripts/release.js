@@ -29,7 +29,8 @@ const versionIncrements = [
 
 const inc = (i) => semver.inc(currentVersion, i, preId)
 const bin = (name) => path.resolve(__dirname, '../node_modules/.bin/' + name)
-const run = (bin, args, opts = {}) => execa(bin, args, { stdio: 'inherit', ...opts })
+const run = (bin, args, opts = {}) =>
+  execa(bin, args, { stdio: 'inherit', ...opts })
 const dryRun = (bin, args, opts = {}) =>
   console.log(chalk.blue(`[dryrun] ${bin} ${args.join(' ')}`), opts)
 const runIfNotDry = isDryRun ? dryRun : run
@@ -45,7 +46,9 @@ async function main() {
       type: 'select',
       name: 'release',
       message: 'Select release type',
-      choices: versionIncrements.map((i) => `${i} (${inc(i)})`).concat(['custom']),
+      choices: versionIncrements
+        .map((i) => `${i} (${inc(i)})`)
+        .concat(['custom']),
     })
 
     if (release === 'custom') {
@@ -94,8 +97,8 @@ async function main() {
   if (!skipBuild && !isDryRun) {
     await run('yarn', ['build', '--release'])
     // test generated dts files
-    step('\nVerifying type declarations...')
-    await run('yarn', ['test-dts-only'])
+    // step('\nVerifying type declarations...')
+    // await run('yarn', ['test-dts-only'])
   } else {
     console.log(`(skipped)`)
   }
@@ -131,8 +134,10 @@ async function main() {
   if (skippedPackages.length) {
     console.log(
       chalk.yellow(
-        `The following packages are skipped and NOT published:\n- ${skippedPackages.join('\n- ')}`
-      )
+        `The following packages are skipped and NOT published:\n- ${skippedPackages.join(
+          '\n- ',
+        )}`,
+      ),
     )
   }
   console.log()
@@ -158,11 +163,10 @@ function updateDeps(pkg, depType, version) {
   const deps = pkg[depType]
   if (!deps) return
   Object.keys(deps).forEach((dep) => {
-    if (
-      dep === 'vue' ||
-      (dep.startsWith('@vue') && packages.includes(dep.replace(/^@vue\//, '')))
-    ) {
-      console.log(chalk.yellow(`${pkg.name} -> ${depType} -> ${dep}@${version}`))
+    if (dep.startsWith('@vu') && packages.includes(dep.replace(/^@vu\//, ''))) {
+      console.log(
+        chalk.yellow(`${pkg.name} -> ${depType} -> ${dep}@${version}`),
+      )
       deps[dep] = version
     }
   })
@@ -179,9 +183,7 @@ async function publishPackage(pkgName, version, runIfNotDry) {
     return
   }
 
-  // for now (alpha/beta phase), every package except "vue" can be published as
-  // `latest`, whereas "vue" will be published under the "next" tag.
-  const releaseTag = pkgName === 'vue' ? 'next' : null
+  const releaseTag = null
 
   // TODO use inferred release channel after official 3.0 release
   // const releaseTag = semver.prerelease(version)[0] || null
@@ -201,7 +203,7 @@ async function publishPackage(pkgName, version, runIfNotDry) {
       {
         cwd: pkgRoot,
         stdio: 'pipe',
-      }
+      },
     )
     console.log(chalk.green(`Successfully published ${pkgName}@${version}`))
   } catch (e) {

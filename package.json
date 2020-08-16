@@ -14,6 +14,7 @@
     "format": "prettier --write --parser typescript \"packages/**/*.ts?(x)\"",
     "lint": "eslint --ext .ts packages/*/src/**",
     "ls-lint": "ls-lint",
+    "release": "node scripts/release.js",
     "size": "node scripts/build.js template component size-check -p -f global",
     "test": "jest"
   },
