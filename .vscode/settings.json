@@ -1,0 +1,34 @@
+{
+  "workbench.colorCustomizations": {
+		"activityBar.activeBackground": "#571864",
+		"activityBar.activeBorder": "#81701f",
+		"activityBar.background": "#571864",
+		"activityBar.foreground": "#e7e7e7",
+		"activityBar.inactiveForeground": "#e7e7e799",
+		"activityBarBadge.background": "#81701f",
+		"activityBarBadge.foreground": "#e7e7e7",
+		"statusBar.background": "#330e3b",
+		"statusBar.foreground": "#e7e7e7",
+		"statusBarItem.hoverBackground": "#571864",
+		"titleBar.activeBackground": "#330e3b",
+		"titleBar.activeForeground": "#e7e7e7",
+		"titleBar.inactiveBackground": "#330e3b99",
+		"titleBar.inactiveForeground": "#e7e7e799"
+	},
+  "peacock.color": "#330e3b",
+  // Use the project's typescript version
+  "typescript.tsdk": "node_modules/typescript/lib",
+
+  "cSpell.enabledLanguageIds": ["markdown", "plaintext", "text", "yml"],
+
+  // Use prettier to format typescript, javascript and JSON files
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
