@@ -10,7 +10,7 @@ import {
   validateProp,
 } from './props'
 import { hyphenate, camelize } from './utils'
-import { Directive } from './directive'
+import { Directive } from '../../template/src/directive'
 
 export type Data = Record<string, unknown>
 
@@ -20,7 +20,7 @@ type Setup<Props, EventNames> = (
   props: Readonly<Props>,
   context: {
     emit: (event: EventNames, ...args: any[]) => void
-  }
+  },
 ) => RenderFunction
 
 type ComponentBaseOptions<Props, EventNames> = {
@@ -68,7 +68,7 @@ export type ComponentInstance<ExtractedProps = Data> = {
 
 // Overload 1: no props
 export function defineComponent<EventNames extends string>(
-  options: ComponentOptionsWithoutProps<EventNames>
+  options: ComponentOptionsWithoutProps<EventNames>,
 ): void
 
 // Overload 2: props
@@ -109,7 +109,11 @@ export function defineComponent({
 
       const emit = (event: string, ...args: any[]) => {
         if (emits.includes(event)) {
-          const e = new CustomEvent(event, { bubbles: false, cancelable: false, detail: args })
+          const e = new CustomEvent(event, {
+            bubbles: false,
+            cancelable: false,
+            detail: args,
+          })
           this.dispatchEvent(e)
         }
       }
@@ -136,11 +140,17 @@ export function defineComponent({
           instance.isMounted = true
         }
 
-        instance[instance.isMounted ? Lifecycle.UPDATE : Lifecycle.MOUNT].forEach((hook) => hook())
+        instance[
+          instance.isMounted ? Lifecycle.UPDATE : Lifecycle.MOUNT
+        ].forEach((hook) => hook())
       })
     }
 
-    attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    attributeChangedCallback(
+      name: string,
+      oldValue: string | null,
+      newValue: string | null,
+    ) {
       const camelizedName = camelize(name)
       const prop = props[camelizedName]
       if (prop) {

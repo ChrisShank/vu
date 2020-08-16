@@ -69,7 +69,8 @@ function createConfig(format, output, plugins = []) {
   output.sourcemap = !!process.env.SOURCE_MAP
   output.externalLiveBindings = false
 
-  const isProductionBuild = process.env.__DEV__ === 'false' || /\.prod\.js$/.test(output.file)
+  const isProductionBuild =
+    process.env.__DEV__ === 'false' || /\.prod\.js$/.test(output.file)
   const isBundlerESMBuild = /esm-bundler/.test(format)
   const isBrowserESMBuild = /esm-browser/.test(format)
   const isNodeBuild = format === 'cjs'
@@ -105,13 +106,16 @@ function createConfig(format, output, plugins = []) {
         // they are only listed here to suppress warnings.
         []
       : // Node / esm-bundler builds. Externalize everything.
-        [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})]
+        [
+          ...Object.keys(pkg.dependencies || {}),
+          ...Object.keys(pkg.peerDependencies || {}),
+        ]
 
   const nodePlugins =
-    format !== 'cjs'
+    isGlobalBuild || isBrowserESMBuild
       ? [
           require('@rollup/plugin-node-resolve').nodeResolve({
-            modulesOnly: true,
+            preferBuiltins: true,
           }),
           require('@rollup/plugin-commonjs')({
             sourceMap: false,
@@ -135,7 +139,7 @@ function createConfig(format, output, plugins = []) {
         isBrowserESMBuild,
         isGlobalBuild || isBrowserESMBuild || isBundlerESMBuild,
         isGlobalBuild,
-        isNodeBuild
+        isNodeBuild,
       ),
       ...nodePlugins,
       ...plugins,
@@ -155,7 +159,7 @@ function createReplacePlugin(
   isBrowserESMBuild,
   isBrowserBuild,
   isGlobalBuild,
-  isNodeBuild
+  isNodeBuild,
 ) {
   const replacements = {
     __COMMIT__: `"${process.env.COMMIT}"`,
@@ -175,6 +179,11 @@ function createReplacePlugin(
     // is targeting Node ?
     __NODE_JS__: isNodeBuild,
   }
+
+  if (!isProduction) {
+    replacements['process.env.NODE_ENV'] = `'development'`
+  }
+
   // allow inline overrides like
   //__DEV__=true yarn build template
   Object.keys(replacements).forEach((key) => {
@@ -208,6 +217,6 @@ function createMinifiedConfig(format) {
           pure_getters: true,
         },
       }),
-    ]
+    ],
   )
 }

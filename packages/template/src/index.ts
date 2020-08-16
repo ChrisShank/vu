@@ -4,3 +4,4 @@ import { render } from './render'
 type H = typeof h
 
 export { h, H, render }
+export * from './directive'

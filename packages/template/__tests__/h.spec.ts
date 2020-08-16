@@ -11,10 +11,10 @@ it('should contain no parts', () => {
 it('should contain one node part', () => {
   const { parts, values, template } = h`<div>${'Hello'}</div>`
   expect(parts.length).toBe(1)
-  expect(parts[0]).toBe({
+  expect(parts[0]).toMatchObject({
     type: 'node',
-    nodeIndex: 0,
-    childIndex: 0,
+    nodeIndex: 2,
+    childIndex: 1,
   })
   expect(values.length).toBe(1)
   expect(values[0]).toBe('Hello')
@@ -27,4 +27,21 @@ it('should return matching template results', () => {
   expect(render('foo')).toMatchObject(render('foo'))
   expect(render('foo').parts).toBe(render('bar').parts)
   expect(render('foo').template).toBe(render('bar').template)
+})
+
+it('should contain a v-on directive part', () => {
+  const handler = () => {}
+  const { parts, values, template } = h`<div @click=${handler}></div>`
+  expect(parts.length).toBe(1)
+  expect(parts[0]).toMatchObject({
+    type: 'directive',
+    name: 'on',
+    arg: 'click',
+    modifiers: {},
+    nodeIndex: 0,
+  })
+  expect(values.length).toBe(1)
+  expect(values[0]).toBe(handler)
+  expect(template.content.childNodes[0]).toBeDefined()
+  expect(template.content.childNodes[0].nodeName).toBe('DIV')
 })

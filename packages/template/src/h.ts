@@ -1,4 +1,5 @@
 import { createWalker, isElement } from './utils'
+import { DirectiveModifiers } from './directive'
 
 export type TemplatePart = NodePart | AttributePart | DirectivePart
 
@@ -13,8 +14,8 @@ type ExtractedDirective = Pick<DirectivePart, 'name' | 'arg' | 'modifiers'>
 export type DirectivePart = {
   type: 'directive'
   name: string
+  modifiers: DirectiveModifiers
   arg?: string
-  modifiers?: string[]
   nodeIndex: number
 }
 
@@ -36,7 +37,10 @@ export type TemplateResult = ParsedTemplate & {
 
 const parsedTemplates = new Map<TemplateStringsArray, ParsedTemplate>()
 
-export function h(strings: TemplateStringsArray, ...values: unknown[]): TemplateResult {
+export function h(
+  strings: TemplateStringsArray,
+  ...values: unknown[]
+): TemplateResult {
   let parsedTemplate = parsedTemplates.get(strings)
 
   if (!parsedTemplate) {
@@ -56,7 +60,10 @@ const markerRegex = RegExp(`{{vu-${uuid}-(\\d+)}}`, 'g')
 const markerSplitRegex = RegExp(`({{vu-${uuid}-\\d+}})`, 'g')
 const createMarker = (i: number) => `{{vu-${uuid}-${i}}}`
 
-function parseTemplate(strings: TemplateStringsArray, values: unknown[]): ParsedTemplate {
+function parseTemplate(
+  strings: TemplateStringsArray,
+  values: unknown[],
+): ParsedTemplate {
   const l = strings.length - 1
   let content = ''
 
@@ -71,7 +78,10 @@ function parseTemplate(strings: TemplateStringsArray, values: unknown[]): Parsed
   return { parts, template }
 }
 
-function generateParts(template: HTMLTemplateElement, numberOfParts: number): TemplatePart[] {
+function generateParts(
+  template: HTMLTemplateElement,
+  numberOfParts: number,
+): TemplatePart[] {
   let nodeIndex: number = -1
   const parts: TemplatePart[] = []
   const nodesToRemove: Set<Node> = new Set()
@@ -146,7 +156,6 @@ function generateParts(template: HTMLTemplateElement, numberOfParts: number): Te
 const directiveShorthands: Record<string, string> = {
   ':': 'bind',
   '@': 'on',
-  '#': 'slot',
 }
 
 const isDirective = (name: string) => /^(v-|:|@|#)/.test(name)
@@ -155,11 +164,26 @@ const directiveRegex = (name: string) =>
   /(?:^v-([a-z0-9-]+))?(?:(?::|^@|^#)(\[[^\]]+\]|[^\.]+))?(.+)?$/i.exec(name)
 
 function extractDirective(name: string): ExtractedDirective {
-  const [, dirName = directiveShorthands[name[0]], arg, modifiers] = directiveRegex(name)!
+  const [
+    ,
+    dirName = directiveShorthands[name[0]],
+    arg,
+    modifiers,
+  ] = directiveRegex(name)!
 
   return {
     name: dirName,
     arg,
-    modifiers: modifiers ? modifiers.substr(1).split('.') : [],
+    modifiers: modifiers ? extractDirectiveModifiers(modifiers) : {},
   }
+}
+
+function extractDirectiveModifiers(modifiers: string): DirectiveModifiers {
+  return modifiers
+    .substr(1)
+    .split('.')
+    .reduce((acc, modifier) => {
+      acc[modifier] = true
+      return acc
+    }, {} as DirectiveModifiers)
 }

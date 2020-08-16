@@ -1,6 +1,6 @@
 import { defineComponent, h } from '@vu/component'
 
 defineComponent({
-  name: 'foo',
+  name: 'hello-world',
   setup: () => () => h`hello world`,
 })

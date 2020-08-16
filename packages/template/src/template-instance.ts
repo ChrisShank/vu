@@ -1,6 +1,13 @@
 import { createWalker } from './utils'
 import { TemplatePart } from './h'
-import { Part, RenderOptions, createNodePart, createAttributePart } from './part'
+import {
+  Part,
+  RenderOptions,
+  createNodePart,
+  createAttributePart,
+  createEventPart,
+  createPropertyPart,
+} from './part'
 
 export type TemplateInstance = {
   node: Node
@@ -10,7 +17,7 @@ export type TemplateInstance = {
 export function instantiateTemplate(
   template: HTMLTemplateElement,
   templateParts: TemplatePart[],
-  options: RenderOptions
+  options: RenderOptions,
 ): TemplateInstance {
   const canUpgradeCE = !!customElements.upgrade
   const parts: Part[] = []
@@ -41,6 +48,11 @@ export function instantiateTemplate(
     } else if (part.type === 'attribute') {
       parts.push(createAttributePart(node! as Element, part.name))
     } else if (part.type === 'directive') {
+      if (part.name === 'on') {
+        parts.push(createEventPart(node! as Element, part.arg!, part.modifiers))
+      } else if (part.name === 'bind') {
+        parts.push(createPropertyPart(node! as Element, part.arg!))
+      }
     }
     partIndex++
   }

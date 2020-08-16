@@ -8,8 +8,15 @@
       "global"
     ]
   },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite"
+  },
   "dependencies": {
     "@vu/component": "0.0.0",
     "@vu/template": "0.0.0"
+  },
+  "devDependencies": {
+    "vite": "^1.0.0-rc.4"
   }
 }

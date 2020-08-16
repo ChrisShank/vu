@@ -1,30 +1,11 @@
 import { getCurrentComponentInstance } from './instance'
-import { isFunction } from './utils'
-
-export interface DirectiveBinding<V = any> {
-  value: V
-  oldValue: V | null
-  arg?: string
-  modifiers: DirectiveModifiers
-  dir: ObjectDirective<any, V>
-}
-
-export type DirectiveHook<T = any, V = any> = (el: T, binding: DirectiveBinding<V>) => void
-
-export interface ObjectDirective<T = any, V = any> {
-  beforeMount?: DirectiveHook<T, V>
-  mounted?: DirectiveHook<T, V>
-  beforeUpdate?: DirectiveHook<T, V>
-  updated?: DirectiveHook<T, V>
-  beforeUnmount?: DirectiveHook<T, V>
-  unmounted?: DirectiveHook<T, V>
-}
+import { isFunction } from '@vu/shared'
 
 export type FunctionDirective<T = any, V = any> = DirectiveHook<T, V>
 
-export type Directive<T = any, V = any> = ObjectDirective<T, V> | FunctionDirective<T, V>
-
-export type DirectiveModifiers = Record<string, boolean>
+export type Directive<T = any, V = any> =
+  | ObjectDirective<T, V>
+  | FunctionDirective<T, V>
 
 // Directive, value, argument, modifiers
 export type DirectiveArguments = Array<
@@ -38,7 +19,8 @@ export function withDirectives(directives: DirectiveArguments) {
   const instance = getCurrentComponentInstance()
 
   if (instance === null) {
-    __DEV__ && console.warn(`withDirectives can only be used inside render functions.`)
+    __DEV__ &&
+      console.warn(`withDirectives can only be used inside render functions.`)
     return
   }
 
@@ -61,7 +43,10 @@ export function withDirectives(directives: DirectiveArguments) {
   }
 }
 
-export function invokeDirectiveHook(bindings: DirectiveBinding[], name: keyof ObjectDirective) {
+export function invokeDirectiveHook(
+  bindings: DirectiveBinding[],
+  name: keyof ObjectDirective,
+) {
   const oldBindings: DirectiveBinding[] = []
   for (let i = 0; i < bindings.length; i++) {
     const binding = bindings[i]
