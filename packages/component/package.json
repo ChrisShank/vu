@@ -1,7 +1,7 @@
 {
   "name": "@vu/component",
   "description": "Vu Web Components",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "Christopher Shank",
   "license": "MIT",
   "main": "index.js",
@@ -36,8 +36,8 @@
   },
   "homepage": "https://github.com/ChrisShank/vu/tree/master/packages/component",
   "dependencies": {
-    "@vu/shared": "0.0.0",
-    "@vu/template": "0.0.0",
+    "@vu/shared": "0.1.0",
+    "@vu/template": "0.1.0",
     "@vue/reactivity": "^3.0.0-rc.5"
   }
 }

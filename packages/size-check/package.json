@@ -1,6 +1,6 @@
 {
   "name": "@vu/size-check",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "buildOptions": {
     "name": "Vu",
@@ -13,8 +13,8 @@
     "dev": "vite"
   },
   "dependencies": {
-    "@vu/component": "0.0.0",
-    "@vu/template": "0.0.0"
+    "@vu/component": "0.1.0",
+    "@vu/template": "0.1.0"
   },
   "devDependencies": {
     "vite": "^1.0.0-rc.4"
