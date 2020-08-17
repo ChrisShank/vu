@@ -1,5 +1,10 @@
 import { TemplateResult } from './h'
-import { RenderOptions, NodePart, createNodePart } from './part'
+import { Directive } from './directive'
+import { NodePart, createNodePart } from './part'
+
+export type RenderOptions = Partial<{
+  directives: Record<string, Directive>
+}>
 
 const renders = new WeakMap<Node, NodePart>()
 

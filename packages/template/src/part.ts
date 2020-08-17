@@ -1,12 +1,8 @@
-import { unref } from '@vue/reactivity'
 import { TemplateResult } from './h'
 import { instantiateTemplate } from './template-instance'
-import { Directive, DirectiveModifiers } from './directive'
+import { DirectiveModifiers } from './directive'
 import { isTemplateResult } from './utils'
-
-export type RenderOptions = Partial<{
-  directives: Directive[]
-}>
+import { RenderOptions } from './render'
 
 export type Part = {
   type: 'node' | 'attribute' | 'property' | 'event' | 'directive'
@@ -66,7 +62,6 @@ export function createNodePart(
   return {
     type: 'node',
     commit(value: unknown) {
-      value = unref(value)
       if (value === currentValue) {
         return
       }
@@ -87,8 +82,6 @@ export function createAttributePart(
   return {
     type: 'attribute',
     commit(value: unknown) {
-      value = unref(value)
-
       if (value === currentValue) {
         return
       }
@@ -125,8 +118,6 @@ export function createEventPart(
   return {
     type: 'event',
     commit(value: unknown) {
-      value = unref(value)
-
       if (value === currentValue) {
         return
       }
@@ -162,8 +153,6 @@ export function createPropertyPart(
   return {
     type: 'property',
     commit(value: unknown) {
-      value = unref(value)
-
       if (value === currentValue) {
         return
       }

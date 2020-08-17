@@ -2,12 +2,12 @@ import { createWalker } from './utils'
 import { TemplatePart } from './h'
 import {
   Part,
-  RenderOptions,
   createNodePart,
   createAttributePart,
   createEventPart,
   createPropertyPart,
 } from './part'
+import { RenderOptions } from './render'
 
 export type TemplateInstance = {
   node: Node

@@ -36,7 +36,6 @@
   },
   "homepage": "https://github.com/ChrisShank/vu/tree/master/packages/template",
   "dependencies": {
-    "@vu/shared": "0.0.0",
-    "@vue/reactivity": "^3.0.0-rc.5"
+    "@vu/shared": "0.0.0"
   }
 }
