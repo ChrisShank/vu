@@ -1,4 +1,4 @@
-# Vu
+# Vu (NOT production ready)
 
 > A Vue-esque Web Component library. 🎶
 
